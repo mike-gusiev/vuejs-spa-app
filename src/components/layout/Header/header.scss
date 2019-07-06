@@ -1,0 +1,39 @@
+header {
+  background: #66bb6a;
+  .wrapper {
+    width: 1024px;
+    margin: 0 auto;
+    .header-link {
+      padding: 10px;
+      text-decoration: none;
+      color: #ffffff;
+      display: block;
+    }
+    .active-link {
+      color: #66bb6a;
+      background: #ffffff;
+    }
+    .home-login {
+      display: flex;
+      .home-user__name {
+        padding: 10px;
+        background: #ffffff;
+        color: #66bb6a;
+      }
+      .home-user__link {
+        padding: 10px 15px;
+        color: #ffffff;
+        cursor: pointer;
+        &:hover {
+          color: #66bb6a;
+          background: #ffffff;
+        }
+      }
+    }
+    .home-link {
+      display: flex;
+
+    }
+  }
+}
+
