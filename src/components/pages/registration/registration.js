@@ -1,11 +1,9 @@
-import Header from '../../layout/Header/Header.vue'
-import { fetchRegistration } from '../../../api'
+import { mapActions } from 'vuex'
+import { required, sameAs, minLength } from 'vuelidate/lib/validators'
 
 export default {
   name: 'Registration',
-  components: {
-    'layout-header': Header
-  },
+
   data () {
     return {
       name: '',
@@ -14,15 +12,31 @@ export default {
       isError: false
     }
   },
+
+  validations: {
+    name: {
+      required,
+      minLength: minLength(4)
+    },
+    password: {
+      required,
+      minLength: minLength(4)
+    },
+    confirmPassword: {
+      sameAsPassword: sameAs('password')
+    }
+  },
+
   methods: {
-    handleRegistration (event) {
-      event.preventDefault()
-      if (this.password === this.confirmPassword) {
-        fetchRegistration(this.name, this.password)
-        this.isError = false
-        this.$router.push({ path: '/login' })
-      } else {
+    ...mapActions('registration', ['registrationUser']),
+
+    handleRegistration () {
+      this.$v.$touch()
+      if (this.$v.$invalid) {
         this.isError = true
+      } else {
+        this.isError = false
+        this.registrationUser({ router: this.$router, name: this.name, password: this.password })
       }
     }
   }

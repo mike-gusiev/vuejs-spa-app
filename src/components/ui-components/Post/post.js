@@ -1,4 +1,5 @@
-import { fetchUpdatePost } from '../../../api'
+import { mapState, mapActions } from 'vuex'
+import { required } from 'vuelidate/lib/validators'
 
 export default {
   name: 'Post',
@@ -6,6 +7,7 @@ export default {
   props: {
     post: Object
   },
+
   data () {
     return {
       isEdit: false,
@@ -14,24 +16,43 @@ export default {
       body: this.post.body
     }
   },
+
+  computed: {
+    ...mapState('post', ['posts'])
+  },
+
+  validations: {
+    title: {
+      required
+    },
+    body: {
+      required
+    }
+  },
+
   methods: {
     changePost () {
       this.isEdit = true
     },
-    validateForm (event) {
-      event.preventDefault()
-      if (this.title.length === 0 || this.body.length === 0) {
+
+    ...mapActions({
+      'updatePost': 'posts/updatePost',
+      'deletePost': 'posts/deletePost'
+    }),
+
+    handleUpdate () {
+      this.$v.$touch()
+      if (this.$v.$invalid) {
         this.isError = true
       } else {
-        this.handleForm(this.post.id, this.title, this.body)
+        this.updatePost({ id: this.post.id, title: this.title, body: this.body, router: this.$router })
+        this.isEdit = false
+        this.isError = false
       }
     },
-    async handleForm (id, body, title) {
-      await fetchUpdatePost(id, body, title)
-      await this.$store.dispatch('posts/getPosts')
-      this.isError = false
-      this.isEdit = false
+
+    handleDelete () {
+      this.deletePost(this.post.id)
     }
   }
-
 }

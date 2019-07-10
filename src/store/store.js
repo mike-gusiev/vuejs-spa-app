@@ -1,14 +1,16 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import { user } from './modules/user'
 import { posts } from './modules/posts'
+import { login } from './modules/login'
+import { registration } from './modules/registration'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    user,
-    posts
+    posts,
+    login,
+    registration
   }
 })

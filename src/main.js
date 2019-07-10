@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import Element from 'element-ui'
 import VueResource from 'vue-resource'
-import App from './App'
+import Vuelidate from 'vuelidate'
+import App from './App.vue'
 import router from './router/router'
 import store from './store/store'
 
 Vue.config.productionTip = false
 
+Vue.use(Vuelidate)
 Vue.use(Element)
 Vue.use(VueResource)
 

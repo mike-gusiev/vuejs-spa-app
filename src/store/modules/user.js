@@ -7,7 +7,7 @@ export const user = {
     changeIsLogin (state, isLogin) {
       state.isLogin = isLogin
     },
-    startedLogin (state) {
+    checkLogin (state) {
       if (localStorage.getItem('User')) {
         state.isLogin = true
       }

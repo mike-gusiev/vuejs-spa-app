@@ -14,18 +14,22 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: 'Home',
       component: Home
     },
     {
       path: '/login',
+      name: 'Login',
       component: Login
     },
     {
       path: '/registration',
+      name: 'Registration',
       component: Registration
     },
     {
       path: '/new-post',
+      name: 'NewPost',
       component: NewPost
     }
   ]

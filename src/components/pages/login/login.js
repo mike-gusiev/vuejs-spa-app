@@ -1,11 +1,9 @@
-import Header from '../../layout/Header/Header.vue'
-import { fetchUsers } from '../../../api'
+import { mapState, mapActions } from 'vuex'
+import { required } from 'vuelidate/lib/validators'
 
 export default {
   name: 'Login',
-  components: {
-    'layout-header': Header
-  },
+
   data () {
     return {
       name: '',
@@ -13,27 +11,40 @@ export default {
       isError: false
     }
   },
-  methods: {
-    validateForm (event) {
-      event.preventDefault()
-      fetchUsers()
-        .then(response => response.data)
-        .then(users => {
-          users.forEach(user => {
-            if (this.name === user.name && this.password === user.password) {
-              this.isError = false
-              this.handleLogin(user)
-            } else {
-              this.isError = true
-            }
-          })
-        })
-        .catch(err => console.log(err))
+
+  computed: {
+    ...mapState('login', ['users'])
+  },
+
+  validations: {
+    name: {
+      required
     },
-    handleLogin (user) {
-      this.$store.commit('user/changeIsLogin', true)
-      localStorage.setItem('User', JSON.stringify(user))
-      this.$router.push({ path: '/' })
+    password: {
+      required,
+      correctPassword (value) {
+        return this.users.some(user => user.name === this.name && user.password === value)
+      }
+    }
+  },
+
+  methods: {
+    ...mapActions({
+      loginUser: 'login/loginUser',
+      getUsers: 'login/getUsers'
+    }),
+
+    handleLogin () {
+      this.getUsers()
+        .then(() => {
+          this.$v.$touch()
+          if (this.$v.$invalid) {
+            this.isError = true
+          } else {
+            this.isError = false
+            this.loginUser({ router: this.$router, name: this.name, password: this.password })
+          }
+        })
     }
   }
 }

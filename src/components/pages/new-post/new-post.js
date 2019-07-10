@@ -1,11 +1,9 @@
-import Header from '../../layout/Header/Header.vue'
-import { fetchNewPost } from '../../../api'
+import { mapActions, mapState } from 'vuex'
+import { required } from 'vuelidate/lib/validators'
 
 export default {
   name: 'NewPost',
-  components: {
-    'layout-header': Header
-  },
+
   data () {
     return {
       title: '',
@@ -13,24 +11,41 @@ export default {
       isError: false
     }
   },
-  created () {
-    this.$store.commit('user/startedLogin')
-    if (!this.$store.state.user.isLogin) {
-      this.$router.push({ path: '/' })
+
+  computed: {
+    ...mapState('login', ['isLogin'])
+  },
+
+  validations: {
+    title: {
+      required
+    },
+    body: {
+      required
     }
   },
+
+  created () {
+    this.loginStatus()
+    if (!this.isLogin) {
+      this.$router.push({ name: 'Home' })
+    }
+  },
+
   methods: {
-    validateForm (event) {
-      event.preventDefault()
-      if (this.title.length === 0 || this.body.length === 0) {
+    ...mapActions({
+      loginStatus: 'login/loginStatus',
+      newPost: 'posts/newPost'
+    }),
+
+    handleNewPost () {
+      this.$v.$touch()
+      if (this.$v.$invalid) {
         this.isError = true
       } else {
-        this.handleForm(this.title, this.body)
+        this.isError = false
+        this.newPost({ id: Date.now(), title: this.title, body: this.body, router: this.$router })
       }
-    },
-    async handleForm (body, title) {
-      await fetchNewPost(body, title)
-      this.$router.push({ path: '/' })
     }
   }
 }
