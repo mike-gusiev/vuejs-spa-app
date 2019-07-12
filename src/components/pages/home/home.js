@@ -6,16 +6,17 @@ export default {
   components: {
     'post': Post
   },
+
   computed: {
     ...mapState('login', ['isLogin']),
     ...mapState('posts', ['posts'])
   },
+
   methods: {
-    ...mapActions('login', ['loginStatus']),
     ...mapActions('posts', ['getPosts'])
   },
+
   created () {
-    this.loginStatus()
     this.getPosts()
   }
 }

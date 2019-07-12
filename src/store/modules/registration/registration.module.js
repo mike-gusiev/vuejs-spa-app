@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { URL } from '../../core/constants'
+import { URL } from '../../../core/constants'
 
 export const registration = {
   namespaced: true,
@@ -11,7 +11,7 @@ export const registration = {
           'Content-type': 'application/json; charset=UTF-8'
         }
       })
-      registrationWithRouter.router.push({ name: 'Login' })
+        .then(registrationWithRouter.router.push({ name: 'Login' }))
     }
   }
 }

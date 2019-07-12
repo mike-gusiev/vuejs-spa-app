@@ -26,7 +26,7 @@ export default {
   },
 
   created () {
-    this.loginStatus()
+    this.$store.commit('login/USER_CHECK_LOGIN_STATUS')
     if (!this.isLogin) {
       this.$router.push({ name: 'Home' })
     }
@@ -34,7 +34,6 @@ export default {
 
   methods: {
     ...mapActions({
-      loginStatus: 'login/loginStatus',
       newPost: 'posts/newPost'
     }),
 

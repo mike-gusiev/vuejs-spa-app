@@ -1,5 +1,5 @@
 <template>
-  <div class="post" v-on:dblclick="changePost">
+  <div class="post" @dblclick="changePost">
       <div v-if="isEdit">
           <form @submit.prevent="handleUpdate">
               <input type="text" placeholder="Title" v-model="$v.title.$model">

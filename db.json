@@ -4,6 +4,16 @@
       "id": 1562320853790,
       "name": "Mike",
       "password": "1234"
+    },
+    {
+      "id": 1562831429725,
+      "name": "Aleks",
+      "password": "1234"
+    },
+    {
+      "id": 1562911601096,
+      "name": "Aleks",
+      "password": "1234"
     }
   ],
   "posts": [
@@ -15,11 +25,6 @@
     {
       "id": 1562772226450,
       "title": "Post2",
-      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    },
-    {
-      "id": 1562772235342,
-      "title": "Post3",
       "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
     }
   ]

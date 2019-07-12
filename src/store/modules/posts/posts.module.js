@@ -1,5 +1,11 @@
 import Vue from 'vue'
-import { URL } from '../../core/constants'
+import { URL } from '../../../core/constants'
+import {
+  SET_POSTS,
+  SET_NEW_POST,
+  UPDATE_POST,
+  DELETE_POST
+} from './mutation-types'
 
 export const posts = {
   namespaced: true,
@@ -7,15 +13,15 @@ export const posts = {
     posts: []
   },
   mutations: {
-    mutationPosts (state, posts) {
+    [SET_POSTS] (state, posts) {
       state.posts = posts
     },
 
-    mutationNewPost (state, post) {
+    [SET_NEW_POST] (state, post) {
       state.posts.push(post)
     },
 
-    mutationUpdatePost (state, updatePost) {
+    [UPDATE_POST] (state, updatePost) {
       state.posts.forEach(post => {
         if (post.id === updatePost.id) {
           post.body = updatePost.body
@@ -24,14 +30,14 @@ export const posts = {
       })
     },
 
-    mutationDeletePost (state, id) {
+    [DELETE_POST] (state, id) {
       state.posts = this.state.posts.posts.filter(post => post.id !== id)
     }
   },
   actions: {
     getPosts ({ commit }) {
       Vue.http.get(URL + '/posts')
-        .then(response => commit('mutationPosts', response.data))
+        .then(response => commit(SET_POSTS, response.data))
         .catch(err => console.log(err))
     },
 
@@ -41,7 +47,10 @@ export const posts = {
           'Content-type': 'application/json; charset=UTF-8'
         }
       })
-        .then(() => { newPost.router.push({ name: 'Home' }) })
+        .then(() => {
+          commit(SET_NEW_POST, { id: newPost.id, title: newPost.title, body: newPost.body })
+          newPost.router.push({ name: 'Home' })
+        })
         .catch(error => console.error(error))
     },
 
@@ -52,13 +61,13 @@ export const posts = {
         }
       })
         .then(() => {
-          commit('mutationUpdatePost', post)
+          commit(UPDATE_POST, post)
         })
     },
 
     deletePost ({ commit }, id) {
       Vue.http.delete(URL + `/posts/${id}`)
-      commit('mutationDeletePost', id)
+      commit(DELETE_POST, id)
     }
   }
 }

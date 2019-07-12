@@ -1,5 +1,6 @@
 import { mapState, mapActions } from 'vuex'
 import { required } from 'vuelidate/lib/validators'
+import { SIGN_IN_LOG_IN } from '../../../store/modules/login/mutation-types'
 
 export default {
   name: 'Login',
@@ -30,7 +31,6 @@ export default {
 
   methods: {
     ...mapActions({
-      loginUser: 'login/loginUser',
       getUsers: 'login/getUsers'
     }),
 
@@ -42,7 +42,7 @@ export default {
             this.isError = true
           } else {
             this.isError = false
-            this.loginUser({ router: this.$router, name: this.name, password: this.password })
+            this.$store.commit(`login/${SIGN_IN_LOG_IN}`, { router: this.$router, name: this.name, password: this.password })
           }
         })
     }
