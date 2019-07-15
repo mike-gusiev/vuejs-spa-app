@@ -11,7 +11,6 @@ export default {
   data () {
     return {
       isEdit: false,
-      isError: false,
       title: this.post.title,
       body: this.post.body
     }
@@ -40,14 +39,20 @@ export default {
       'deletePost': 'posts/deletePost'
     }),
 
+    validateTitle (value) {
+      this.title = value
+      this.$v.title.$touch()
+    },
+
+    validateBody (value) {
+      this.body = value
+      this.$v.body.$touch()
+    },
+
     handleUpdate () {
-      this.$v.$touch()
-      if (this.$v.$invalid) {
-        this.isError = true
-      } else {
-        this.updatePost({ id: this.post.id, title: this.title, body: this.body, router: this.$router })
+      if (!this.$v.$invalid) {
         this.isEdit = false
-        this.isError = false
+        this.updatePost({ id: this.post.id, title: this.title, body: this.body, router: this.$router })
       }
     },
 

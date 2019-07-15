@@ -26,8 +26,9 @@ export const login = {
       state.isLogin = true
     },
 
-    [SIGN_IN_LOG_OUT] (state) {
+    [SIGN_IN_LOG_OUT] (state, router) {
       localStorage.removeItem('User')
+      router.router.push({ name: 'Home' })
       state.isLogin = false
     },
 

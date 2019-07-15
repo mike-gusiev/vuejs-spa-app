@@ -8,9 +8,9 @@
         <router-link class="header-link" active-class="active-link" :to="{name: 'NewPost'}">
             Add post
         </router-link>
-        <div @click="handleExit" class="home-user__link">
+        <button @click="handleExit" class="exit-button">
           Exit
-        </div>
+        </button>
       </div>
       <div v-else class="home-link">
         <router-link :to="{name: 'Login'}" class="header-link" active-class="active-link">Sign In</router-link>

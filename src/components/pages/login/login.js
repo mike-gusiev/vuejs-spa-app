@@ -8,19 +8,32 @@ export default {
   data () {
     return {
       name: '',
-      password: '',
-      isError: false
+      password: ''
     }
   },
 
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      if (vm.isLogin) {
+        next({ name: 'Home' })
+      }
+    })
+  },
+
+  created () {
+    this.getUsers()
+  },
+
   computed: {
-    ...mapState('login', ['users'])
+    ...mapState('login', ['users']),
+    ...mapState('login', ['isLogin'])
   },
 
   validations: {
     name: {
       required
     },
+
     password: {
       required,
       correctPassword (value) {
@@ -34,17 +47,20 @@ export default {
       getUsers: 'login/getUsers'
     }),
 
+    validateName (value) {
+      this.name = value
+      this.$v.name.$touch()
+    },
+
+    validatePassword (value) {
+      this.password = value
+      this.$v.password.$touch()
+    },
+
     handleLogin () {
-      this.getUsers()
-        .then(() => {
-          this.$v.$touch()
-          if (this.$v.$invalid) {
-            this.isError = true
-          } else {
-            this.isError = false
-            this.$store.commit(`login/${SIGN_IN_LOG_IN}`, { router: this.$router, name: this.name, password: this.password })
-          }
-        })
+      if (!this.$v.$invalid) {
+        this.$store.commit(`login/${SIGN_IN_LOG_IN}`, { router: this.$router, name: this.name, password: this.password })
+      }
     }
   }
 }

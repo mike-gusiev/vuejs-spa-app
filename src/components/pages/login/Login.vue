@@ -3,20 +3,24 @@
     <form @submit.prevent="handleLogin" >
 
     <input type="text"
-        v-model.trim="$v.name.$model"
+        v-model.trim="name"
         placeholder="Name"
         class="input-form"
-        autocomplete="off" />
-        <div class="error-text" v-if="isError && !$v.name.required">Name is required</div>
+        autocomplete="off"
+        @input="validateName($event.target.value)"
+    />
+        <div class="error-text" v-if="$v.name.$dirty && !$v.name.required">Name is required</div>
 
       <input type="password"
-        v-model.lazy="$v.password.$model"
+        v-model.lazy="password"
         placeholder="Password"
         class="input-form"
-        autocomplete="off" />
+        autocomplete="off"
+        @input="validatePassword($event.target.value)"
+      />
 
-      <div class="error-text" v-if="isError && !$v.password.required">Password is required</div>
-      <div class="error-text" v-if="isError && !$v.password.correctPassword">Invalid login</div>
+      <div class="error-text" v-if="$v.password.$dirty && !$v.password.required">Password is required</div>
+      <div class="error-text" v-if="$v.password.$dirty && !$v.password.correctPassword">Invalid login</div>
 
       <button type="submit" class="button-submit">Submit</button>
     </form>

@@ -1,4 +1,4 @@
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import { required, sameAs, minLength } from 'vuelidate/lib/validators'
 
 export default {
@@ -8,9 +8,20 @@ export default {
     return {
       name: '',
       password: '',
-      confirmPassword: '',
-      isError: false
+      confirmPassword: ''
     }
+  },
+
+  computed: {
+    ...mapState('login', ['isLogin'])
+  },
+
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      if (vm.isLogin) {
+        next({ name: 'Home' })
+      }
+    })
   },
 
   validations: {
@@ -18,24 +29,37 @@ export default {
       required,
       minLength: minLength(4)
     },
+
     password: {
       required,
       minLength: minLength(4)
     },
+
     confirmPassword: {
       sameAsPassword: sameAs('password')
     }
   },
 
   methods: {
+    validateName (value) {
+      this.name = value
+      this.$v.name.$touch()
+    },
+
+    validatePassword (value) {
+      this.password = value
+      this.$v.password.$touch()
+    },
+
+    validateConfirmPassword (value) {
+      this.confirmPassword = value
+      this.$v.confirmPassword.$touch()
+    },
+
     ...mapActions('registration', ['registrationUser']),
 
     handleRegistration () {
-      this.$v.$touch()
-      if (this.$v.$invalid) {
-        this.isError = true
-      } else {
-        this.isError = false
+      if (!this.$v.$invalid) {
         this.registrationUser({ router: this.$router, name: this.name, password: this.password })
       }
     }

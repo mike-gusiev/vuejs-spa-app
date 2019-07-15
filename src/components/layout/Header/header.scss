@@ -29,6 +29,19 @@ header {
           background: #ffffff;
         }
       }
+      .exit-button {
+        padding: 10px 15px;
+        color: #ffffff;
+        background: inherit;
+        border: none;
+        font-size: 16px;
+        outline: none;
+        cursor: pointer;
+        &:hover {
+          color: #66bb6a;
+          background: #ffffff;
+        }
+      }
     }
     .home-link {
       display: flex;

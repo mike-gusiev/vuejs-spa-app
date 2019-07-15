@@ -5,7 +5,7 @@ export default {
   name: 'Header',
 
   created () {
-    this.$store.commit(`login/${USER_CHECK_LOGIN_STATUS}`)
+    this.checkLoginStatus()
   },
 
   computed: {
@@ -18,11 +18,13 @@ export default {
   },
 
   methods: {
+    ...mapMutations({
+      logOut: `login/${SIGN_IN_LOG_OUT}`,
+      checkLoginStatus: `login/${USER_CHECK_LOGIN_STATUS}`
+    }),
 
     handleExit () {
-      return {
-        ...mapMutations([SIGN_IN_LOG_OUT])
-      }
+      this.logOut({ router: this.$router })
     }
   }
 }

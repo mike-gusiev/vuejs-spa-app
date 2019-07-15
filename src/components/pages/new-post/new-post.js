@@ -7,8 +7,7 @@ export default {
   data () {
     return {
       title: '',
-      body: '',
-      isError: false
+      body: ''
     }
   },
 
@@ -25,11 +24,12 @@ export default {
     }
   },
 
-  created () {
-    this.$store.commit('login/USER_CHECK_LOGIN_STATUS')
-    if (!this.isLogin) {
-      this.$router.push({ name: 'Home' })
-    }
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      if (!vm.isLogin) {
+        next({ name: 'Home' })
+      }
+    })
   },
 
   methods: {
@@ -37,12 +37,18 @@ export default {
       newPost: 'posts/newPost'
     }),
 
+    validateTitle (value) {
+      this.title = value
+      this.$v.title.$touch()
+    },
+
+    validateBody (value) {
+      this.body = value
+      this.$v.body.$touch()
+    },
+
     handleNewPost () {
-      this.$v.$touch()
-      if (this.$v.$invalid) {
-        this.isError = true
-      } else {
-        this.isError = false
+      if (!this.$v.$invalid) {
         this.newPost({ id: Date.now(), title: this.title, body: this.body, router: this.$router })
       }
     }

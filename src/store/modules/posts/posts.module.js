@@ -9,9 +9,11 @@ import {
 
 export const posts = {
   namespaced: true,
+
   state: {
     posts: []
   },
+
   mutations: {
     [SET_POSTS] (state, posts) {
       state.posts = posts
@@ -34,6 +36,7 @@ export const posts = {
       state.posts = this.state.posts.posts.filter(post => post.id !== id)
     }
   },
+
   actions: {
     getPosts ({ commit }) {
       Vue.http.get(URL + '/posts')

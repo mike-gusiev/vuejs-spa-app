@@ -1,11 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Home from '../components/pages/home/Home.vue'
-import Login from '../components/pages/login/Login.vue'
-import Registration from '../components/pages/registration/Registration.vue'
-import NewPost from '../components/pages/new-post/NewPost.vue'
-
 Vue.use(Router)
 
 export default new Router({
@@ -15,22 +10,22 @@ export default new Router({
     {
       path: '/',
       name: 'Home',
-      component: Home
+      component: () => import(/* webpackChunkName: "Home" */ '../components/pages/home/Home.vue')
     },
     {
       path: '/login',
       name: 'Login',
-      component: Login
+      component: () => import(/* webpackChunkName: 'Login' */ '../components/pages/login/Login.vue')
     },
     {
       path: '/registration',
       name: 'Registration',
-      component: Registration
+      component: () => import(/* webpackChunkName: 'Registration' */ '../components/pages/registration/Registration.vue')
     },
     {
       path: '/new-post',
       name: 'NewPost',
-      component: NewPost
+      component: () => import(/* webpackChunkName: 'NewPost' */ '../components/pages/new-post/NewPost.vue')
     }
   ]
 })
