@@ -3,7 +3,7 @@
     <div class="wrapper">
       <div v-if="isLogin" class="home-login">
         <router-link class="header-link" active-class="active-link" :to="{name: 'Home'}" exact>
-          Hey {{userName}}!
+            Hey {{currentUser}}!
         </router-link>
         <router-link class="header-link" active-class="active-link" :to="{name: 'NewPost'}">
             Add post

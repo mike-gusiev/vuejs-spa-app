@@ -41,15 +41,6 @@ export default {
   },
 
   methods: {
-    validateName (value) {
-      this.name = value
-      this.$v.name.$touch()
-    },
-
-    validatePassword (value) {
-      this.password = value
-      this.$v.password.$touch()
-    },
 
     validateConfirmPassword (value) {
       this.confirmPassword = value

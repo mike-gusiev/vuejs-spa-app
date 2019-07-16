@@ -5,7 +5,8 @@ export default {
   name: 'Post',
 
   props: {
-    post: Object
+    post: Object,
+    index: Number
   },
 
   data () {
@@ -39,20 +40,10 @@ export default {
       'deletePost': 'posts/deletePost'
     }),
 
-    validateTitle (value) {
-      this.title = value
-      this.$v.title.$touch()
-    },
-
-    validateBody (value) {
-      this.body = value
-      this.$v.body.$touch()
-    },
-
     handleUpdate () {
-      if (!this.$v.$invalid) {
+        if (!this.$v.$invalid) {
         this.isEdit = false
-        this.updatePost({ id: this.post.id, title: this.title, body: this.body, router: this.$router })
+        this.updatePost({ id: this.post.id, title: this.title, body: this.body, router: this.$router, index: this.index }, this.index)
       }
     },
 

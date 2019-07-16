@@ -1,4 +1,4 @@
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 import { USER_CHECK_LOGIN_STATUS, SIGN_IN_LOG_OUT } from '../../../store/modules/login/mutation-types'
 
 export default {
@@ -6,15 +6,14 @@ export default {
 
   created () {
     this.checkLoginStatus()
+    if (localStorage.getItem('User')) {
+      this.getCurrentUser(JSON.parse(localStorage.getItem('User')).id)
+    }
   },
 
   computed: {
-    ...mapState('login', ['isLogin']),
-
-    userName () {
-      let user = JSON.parse(localStorage.getItem('User'))
-      return user.name
-    }
+    ...mapState('login', ['currentUser']),
+    ...mapState('login', ['isLogin'])
   },
 
   methods: {
@@ -23,8 +22,13 @@ export default {
       checkLoginStatus: `login/${USER_CHECK_LOGIN_STATUS}`
     }),
 
+    ...mapActions({
+      getCurrentUser: 'login/getCurrentUser'
+    }),
+
     handleExit () {
-      this.logOut({ router: this.$router })
+      this.logOut()
+      this.$router.push({ name: 'Home' })
     }
   }
 }

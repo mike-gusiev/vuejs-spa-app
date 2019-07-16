@@ -24,12 +24,9 @@ export const posts = {
     },
 
     [UPDATE_POST] (state, updatePost) {
-      state.posts.forEach(post => {
-        if (post.id === updatePost.id) {
-          post.body = updatePost.body
-          post.title = updatePost.title
-        }
-      })
+      const { index, body, title } = updatePost
+      state.posts[index].body = body
+      state.posts[index].title = title
     },
 
     [DELETE_POST] (state, id) {
@@ -41,36 +38,34 @@ export const posts = {
     getPosts ({ commit }) {
       Vue.http.get(URL + '/posts')
         .then(response => commit(SET_POSTS, response.data))
-        .catch(err => console.log(err))
+        .catch(error => console.log(error))
     },
 
     newPost ({ commit }, newPost) {
-      Vue.http.post(URL + '/posts', { id: newPost.id, title: newPost.title, body: newPost.body }, {
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8'
-        }
-      })
+      const { title, body, router } = newPost
+
+      Vue.http.post(URL + '/posts', { title, body })
         .then(() => {
-          commit(SET_NEW_POST, { id: newPost.id, title: newPost.title, body: newPost.body })
-          newPost.router.push({ name: 'Home' })
+          commit(SET_NEW_POST, { title, body })
+          router.push({ name: 'Home' })
         })
         .catch(error => console.error(error))
     },
 
     updatePost ({ commit }, post) {
-      Vue.http.put(URL + `/posts/${post.id}`, { id: post.id, title: post.title, body: post.body }, {
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8'
-        }
-      })
+      const { id, title, body, index } = post
+
+      Vue.http.put(URL + `/posts/${id}`, { title, body })
         .then(() => {
-          commit(UPDATE_POST, post)
+          commit(UPDATE_POST, { index, title, body})
         })
+        .catch(error => console.log(error))
     },
 
     deletePost ({ commit }, id) {
       Vue.http.delete(URL + `/posts/${id}`)
-      commit(DELETE_POST, id)
+        .then(() => commit(DELETE_POST, id))
+        .catch(error => console.log(error))
     }
   }
 }

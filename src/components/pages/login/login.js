@@ -47,19 +47,10 @@ export default {
       getUsers: 'login/getUsers'
     }),
 
-    validateName (value) {
-      this.name = value
-      this.$v.name.$touch()
-    },
-
-    validatePassword (value) {
-      this.password = value
-      this.$v.password.$touch()
-    },
-
     handleLogin () {
       if (!this.$v.$invalid) {
-        this.$store.commit(`login/${SIGN_IN_LOG_IN}`, { router: this.$router, name: this.name, password: this.password })
+        this.$store.commit(`login/${SIGN_IN_LOG_IN}`, this.name)
+        this.$router.push({ name: 'Home' })
       }
     }
   }

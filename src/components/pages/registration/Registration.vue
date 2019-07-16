@@ -6,18 +6,18 @@
              placeholder="Name"
              class="input-form"
              autocomplete="off"
-             @input="validateName($event.target.value)"
+             @blur="$v.name.$touch()"
       />
 
         <div v-if="$v.name.$dirty && !$v.name.required" class="error-text">Name is required</div>
         <div v-if="!$v.name.minLength" class="error-text">Name must have at least {{$v.name.$params.minLength.min}} letters.</div>
 
       <input type="password"
-             v-model="$v.password.$model"
+             v-model="password"
              placeholder="Password"
              class="input-form"
              autocomplete="off"
-             @input="validatePassword($event.target.value)"
+             @blur="$v.password.$touch()"
       />
 
         <div v-if="$v.password.$dirty && !$v.password.required" class="error-text">Password is required</div>
@@ -29,7 +29,7 @@
              placeholder="Confirm password"
              class="input-form"
              autocomplete="off"
-             @inpit="validateConfirmPassword($event.target.value)"
+             @blur="$v.confirmPassword.$touch()"
       />
 
         <div v-if="!$v.confirmPassword.sameAsPassword" class="error-text">Passwords must be identical.</div>

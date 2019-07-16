@@ -37,19 +37,9 @@ export default {
       newPost: 'posts/newPost'
     }),
 
-    validateTitle (value) {
-      this.title = value
-      this.$v.title.$touch()
-    },
-
-    validateBody (value) {
-      this.body = value
-      this.$v.body.$touch()
-    },
-
     handleNewPost () {
       if (!this.$v.$invalid) {
-        this.newPost({ id: Date.now(), title: this.title, body: this.body, router: this.$router })
+        this.newPost({ title: this.title, body: this.body, router: this.$router })
       }
     }
   }

@@ -7,7 +7,7 @@
         placeholder="Name"
         class="input-form"
         autocomplete="off"
-        @input="validateName($event.target.value)"
+        @blur="$v.name.$touch()"
     />
         <div class="error-text" v-if="$v.name.$dirty && !$v.name.required">Name is required</div>
 
@@ -16,7 +16,7 @@
         placeholder="Password"
         class="input-form"
         autocomplete="off"
-        @input="validatePassword($event.target.value)"
+        @blur="$v.password.$touch()"
       />
 
       <div class="error-text" v-if="$v.password.$dirty && !$v.password.required">Password is required</div>
