@@ -6,7 +6,7 @@ export const registration = {
 
   actions: {
     registrationUser ({}, registrationWithRouter) {
-      Vue.http.post(URL + '/users', { id: Date.now(), name: registrationWithRouter.name, password: registrationWithRouter.password })
+      Vue.http.post(URL + '/users', { name: registrationWithRouter.name, password: registrationWithRouter.password })
         .then(registrationWithRouter.router.push({ name: 'Login' }))
         .catch(error => console.log(error))
     }

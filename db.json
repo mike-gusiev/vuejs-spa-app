@@ -1,21 +1,56 @@
 {
   "users": [
     {
-      "id": 1562320853790,
+      "id": 1,
       "name": "Mike",
+      "password": "1234"
+    },
+    {
+      "id": 2,
+      "name": "Alex",
       "password": "1234"
     }
   ],
   "posts": [
     {
-      "id": 1562772219195,
-      "title": "Post1",
-      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      "owner": {
+        "id": 1,
+        "name": "Mike"
+      },
+      "content": {
+        "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua......"
+      },
+      "id": 1
     },
     {
-      "id": 1562772226450,
-      "title": "Post2",
-      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      "owner": {
+        "id": 2,
+        "name": "Alex"
+      },
+      "content": {
+        "body": "Second post"
+      },
+      "id": 2
+    }
+  ],
+  "comments": [
+    {
+      "owner": {
+        "id": 2,
+        "name": "Alex"
+      },
+      "postId": 1,
+      "comment": "123",
+      "id": 1
+    },
+    {
+      "owner": {
+        "id": 1,
+        "name": "Mike"
+      },
+      "postId": 2,
+      "comment": "Lol",
+      "id": 2
     }
   ]
 }

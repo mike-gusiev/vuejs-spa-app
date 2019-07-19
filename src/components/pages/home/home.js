@@ -17,6 +17,8 @@ export default {
   },
 
   created () {
-    this.getPosts()
+    if (this.isLogin) {
+      this.getPosts()
+    }
   }
 }

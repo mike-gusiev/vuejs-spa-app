@@ -2,11 +2,11 @@
   <header>
     <div class="wrapper">
       <div v-if="isLogin" class="home-login">
-        <router-link class="header-link" active-class="active-link" :to="{name: 'Home'}" exact>
-            Hey {{currentUser}}!
+        <router-link class="header-link" active-class="active-link" :to="{name: 'UserPage', params: {user: currentUser}}" exact>
+            {{currentUser}}
         </router-link>
-        <router-link class="header-link" active-class="active-link" :to="{name: 'NewPost'}">
-            Add post
+        <router-link class="header-link" active-class="active-link" :to="{name: 'Home'}" exact>
+            Home
         </router-link>
         <button @click="handleExit" class="exit-button">
           Exit
