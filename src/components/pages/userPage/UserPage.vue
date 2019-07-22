@@ -11,6 +11,7 @@
                     placeholder="Description..."
                     v-model="body"
                     class="text-newPost"
+                    @blur="$v.body.$touch()"
                 ></textarea>
                 <button class="button-submit">Post</button>
             </form>

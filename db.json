@@ -31,17 +31,54 @@
         "body": "Second post"
       },
       "id": 2
+    },
+    {
+      "owner": {
+        "id": 1,
+        "name": "Mike"
+      },
+      "content": {
+        "body": "Some info"
+      },
+      "id": 3
     }
   ],
   "comments": [
     {
       "owner": {
-        "id": 2,
-        "name": "Alex"
+        "id": 1,
+        "name": "Mike"
       },
       "postId": 1,
-      "content": "123",
-      "id": 1
+      "content": "LOl",
+      "id": 2
+    },
+    {
+      "owner": {
+        "id": 1,
+        "name": "Mike"
+      },
+      "postId": 3,
+      "content": "Lol",
+      "id": 3
+    },
+    {
+      "owner": {
+        "id": 1,
+        "name": "Mike"
+      },
+      "postId": 3,
+      "content": "some",
+      "id": 4
+    },
+    {
+      "owner": {
+        "id": 1,
+        "name": "Mike"
+      },
+      "postId": 2,
+      "content": "Hi)",
+      "id": 5
     }
   ]
 }

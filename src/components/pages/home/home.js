@@ -7,11 +7,9 @@ export default {
     'post': Post
   },
 
-    created () {
-        if (this.isLogin) {
-            this.getPosts()
-        }
-    },
+  created () {
+    this.getPosts()
+  },
 
   computed: {
     ...mapState('login', ['isLogin']),

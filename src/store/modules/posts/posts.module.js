@@ -21,7 +21,7 @@ export const posts = {
 
   mutations: {
     [SET_POSTS] (state, posts) {
-        state.posts = posts
+      state.posts = posts
     },
 
     [SET_NEW_POST] (state, post) {
@@ -46,14 +46,13 @@ export const posts = {
     },
 
     [UPDATE_COMMENT] (state, comment) {
-        const { data, index } = comment
-        state.comments[data.postId][index] = data.content
-        console.log(state.comments[data.postId][index]);
+      const { data, index } = comment
+      state.comments[data.postId][index] = data
     },
 
     [DELETE_COMMENT] (state, info) {
-        const { postId, id } = info
-        state.comments[postId] = this.state.posts.comments[`${postId}`].filter(comment => comment.id !== id)
+      const { postId, id } = info
+      state.comments[postId] = this.state.posts.comments[`${postId}`].filter(comment => comment.id !== id)
     }
   },
 
@@ -61,17 +60,17 @@ export const posts = {
     getPosts ({ commit }) {
       Vue.http.get(URL + '/posts')
         .then(response => {
-            commit(SET_POSTS, response.data)
+          commit(SET_POSTS, response.data)
         })
         .catch(error => console.log(error))
     },
 
-    getUserPosts ({commit}, userId) {
-        Vue.http.get(URL + '/posts?owner.id=' + userId)
-            .then(response => {
-                commit(SET_POSTS, response.data)
-            })
-            .catch(error => console.log(error))
+    getUserPosts ({ commit }, userId) {
+      Vue.http.get(URL + '/posts?owner.id=' + userId)
+        .then(response => {
+          commit(SET_POSTS, response.data)
+        })
+        .catch(error => console.log(error))
     },
 
     newPost ({ commit }, newPost) {
@@ -88,7 +87,7 @@ export const posts = {
       const { id, body, index, userName, userId } = post
       Vue.http.put(URL + `/posts/${id}`, { owner: { id: userId, name: userName }, content: { body } })
         .then((response) => {
-          commit(UPDATE_POST, {data: response.data, index})
+          commit(UPDATE_POST, { data: response.data, index })
         })
         .catch(error => console.log(error))
     },
@@ -108,27 +107,24 @@ export const posts = {
     },
 
     newComment ({ commit }, comment) {
-        const {userId, userName, postId, content} = comment
+      const { userId, userName, postId, content } = comment
       Vue.http.post(URL + '/comments',
         { owner: { id: userId, name: userName }, postId, content })
         .then(response => commit(SET_NEW_COMMENT, response.data))
         .catch(error => console.log(error))
     },
 
-    updateComment ({commit}, comment) {
-        const { id, content, index, userName, userId, postId } = comment
-        Vue.http.put(URL + `/comments/${id}`, { owner: { id: userId, name: userName }, postId, content })
-            .then((response) => {
-                console.log(response.data);
-                commit(UPDATE_COMMENT, {data: response.data, index})
-            })
-            .catch(error => console.log(error))
+    updateComment ({ commit }, comment) {
+      const { id, content, index, userName, userId, postId } = comment
+      Vue.http.put(URL + `/comments/${id}`, { owner: { id: userId, name: userName }, postId, content })
+        .then((response) => commit(UPDATE_COMMENT, { data: response.data, index }))
+        .catch(error => console.log(error))
     },
 
-    deleteComment ({commit}, info) {
-        Vue.http.delete(URL + `/comments/${info.id}`)
-            .then(() => commit(DELETE_COMMENT, info))
-            .catch(error => console.log(error))
+    deleteComment ({ commit }, info) {
+      Vue.http.delete(URL + `/comments/${info.id}`)
+        .then(() => commit(DELETE_COMMENT, info))
+        .catch(error => console.log(error))
     }
   }
 }

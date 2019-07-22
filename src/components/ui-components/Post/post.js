@@ -1,4 +1,4 @@
-import { mapState, mapActions, mapGetters } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import { required } from 'vuelidate/lib/validators'
 import Comment from './comment/Comment.vue'
 
@@ -26,13 +26,16 @@ export default {
   computed: {
     ...mapState('posts', ['comments']),
     ...mapState('login', ['currentUser']),
-    currentUserId:  () => {
-        return JSON.parse(localStorage.getItem('User')).id
+    currentUserId: () => {
+      return JSON.parse(localStorage.getItem('User')).id
     }
   },
 
   validations: {
     body: {
+      required
+    },
+    comment: {
       required
     }
   },
@@ -50,32 +53,37 @@ export default {
     }),
 
     handleUpdate () {
-      if (!this.$v.$invalid) {
-
+      if (!this.$v.body.$invalid) {
+        this.isEdit = false
+        this.updatePost({ id: this.post.id,
+          userId: this.post.owner.id,
+          userName: this.currentUser,
+          body: this.body,
+          router: this.$router,
+          index: this.index })
       }
-      this.isEdit = false
-      this.updatePost({ id: this.post.id, userId: this.post.owner.id, userName: this.currentUser, body: this.body, router: this.$router, index: this.index })
     },
 
     handleDelete () {
-      console.log(this.post)
       this.deletePost(this.post.id)
     },
 
     toggleVisibleComments () {
-        if (this.showComments === false) {
-            this.getComments(this.post.id)
-        }
-        this.showComments = !this.showComments
+      if (this.showComments === false) {
+        this.getComments(this.post.id)
+      }
+      this.showComments = !this.showComments
     },
 
     handleComment () {
-      this.newComment({ content: this.comment,
+      if (!this.$v.comment.$invalid) {
+        this.newComment({ content: this.comment,
           userId: this.currentUserId,
           userName: this.currentUser,
           postId: this.post.id,
           index: this.index })
         this.comment = ''
+      }
     }
   }
 }

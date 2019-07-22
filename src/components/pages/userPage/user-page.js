@@ -1,5 +1,6 @@
 import { mapActions, mapState } from 'vuex'
 import Post from '../../ui-components/Post/Post.vue'
+import { required } from 'vuelidate/lib/validators'
 
 export default {
   name: 'UserPage',
@@ -12,6 +13,12 @@ export default {
 
   components: {
     'post': Post
+  },
+
+  validations: {
+    body: {
+      required
+    }
   },
 
   created () {
@@ -30,10 +37,12 @@ export default {
     }),
 
     handleSubmit () {
-      this.newPost({ userId: JSON.parse(localStorage.getItem('User')).id,
+      if (!this.$v.$invalid) {
+        this.newPost({ userId: JSON.parse(localStorage.getItem('User')).id,
           userName: this.$route.params.user,
           body: this.body })
-      this.body = ''
+        this.body = ''
+      }
     }
   }
 }
