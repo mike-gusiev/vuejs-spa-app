@@ -5,6 +5,7 @@ export const registration = {
   namespaced: true,
 
   actions: {
+    // eslint-disable-next-line
     registrationUser ({}, registrationWithRouter) {
       Vue.http.post(URL + '/users', { name: registrationWithRouter.name, password: registrationWithRouter.password })
         .then(registrationWithRouter.router.push({ name: 'Login' }))
