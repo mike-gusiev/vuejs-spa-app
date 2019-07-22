@@ -18,7 +18,6 @@ export default {
     return {
       isEdit: false,
       showComments: false,
-      title: this.post.title,
       body: this.post.content.body,
       comment: ''
     }
@@ -27,12 +26,12 @@ export default {
   computed: {
     ...mapState('posts', ['comments']),
     ...mapState('login', ['currentUser']),
+    currentUserId:  () => {
+        return JSON.parse(localStorage.getItem('User')).id
+    }
   },
 
   validations: {
-    title: {
-      required
-    },
     body: {
       required
     }
@@ -55,7 +54,7 @@ export default {
 
       }
       this.isEdit = false
-      this.updatePost({ id: this.post.id, body: this.body, router: this.$router, index: this.index })
+      this.updatePost({ id: this.post.id, userId: this.post.owner.id, userName: this.currentUser, body: this.body, router: this.$router, index: this.index })
     },
 
     handleDelete () {
@@ -64,15 +63,15 @@ export default {
     },
 
     toggleVisibleComments () {
-      // console.log(this);
-      this.showComments = !this.showComments
-      this.getComments(this.post.id)
-      // console.log(this.comments[`${this.post.id}`])
+        if (this.showComments === false) {
+            this.getComments(this.post.id)
+        }
+        this.showComments = !this.showComments
     },
 
     handleComment () {
-      this.newComment({ commentText: this.comment,
-          userId: JSON.parse(localStorage.getItem('User')).id,
+      this.newComment({ content: this.comment,
+          userId: this.currentUserId,
           userName: this.currentUser,
           postId: this.post.id,
           index: this.index })

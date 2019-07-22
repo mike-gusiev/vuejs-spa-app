@@ -23,6 +23,7 @@ export const login = {
     },
 
     [SIGN_IN_SET_CURRENT_USER] (state, user) {
+        state.isLogin = true
       state.currentUser = user
     },
 
@@ -42,7 +43,7 @@ export const login = {
       if (localStorage.getItem('User')) {
         state.isLogin = true
       }
-    }
+    } // in header doesn`t use
   },
 
   actions: {
@@ -53,10 +54,15 @@ export const login = {
     },
 
     getCurrentUser ({ commit }, id) {
-      Vue.http.get(URL + '/users/' + id)
-        .then(response => {
-          commit(SIGN_IN_SET_CURRENT_USER, response.data.name)
-        })
+        if(localStorage.getItem('User')){
+            const currentId = JSON.parse(localStorage.getItem('User')).id
+
+            Vue.http.get(URL + '/users/' + currentId)
+                .then(response => {
+                    commit(SIGN_IN_SET_CURRENT_USER, response.data.name)
+                })
+                .catch(error => console.log(error))
+        }
     }
   }
 }

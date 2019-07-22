@@ -3,33 +3,23 @@ header {
   .wrapper {
     width: 1024px;
     margin: 0 auto;
-    .header-link {
-      padding: 10px;
-      text-decoration: none;
-      color: #ffffff;
-      display: block;
-    }
-    .active-link {
-      color: #66bb6a;
-      background: #ffffff;
-    }
-    .home-login {
+
+    .home-login, .home-link {
       display: flex;
-      .home-user__name {
+
+      .header-link {
         padding: 10px;
-        background: #ffffff;
-        color: #66bb6a;
-      }
-      .home-user__link {
-        padding: 10px 15px;
+        text-decoration: none;
         color: #ffffff;
-        cursor: pointer;
-        &:hover {
-          color: #66bb6a;
-          background: #ffffff;
-        }
+        display: block;
       }
-      .exit-button {
+
+      .active-link {
+        color: #66bb6a;
+        background: #ffffff;
+      }
+
+      .button-exit {
         padding: 10px 15px;
         color: #ffffff;
         background: inherit;
@@ -37,14 +27,13 @@ header {
         font-size: 16px;
         outline: none;
         cursor: pointer;
+        margin-left: auto;
+
         &:hover {
           color: #66bb6a;
           background: #ffffff;
         }
       }
-    }
-    .home-link {
-      display: flex;
     }
   }
 }

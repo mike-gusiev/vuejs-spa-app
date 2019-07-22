@@ -8,8 +8,8 @@
         <router-link class="header-link" active-class="active-link" :to="{name: 'Home'}" exact>
             Home
         </router-link>
-        <button @click="handleExit" class="exit-button">
-          Exit
+        <button @click="userLogOut" class="button-exit">
+          Logout
         </button>
       </div>
       <div v-else class="home-link">

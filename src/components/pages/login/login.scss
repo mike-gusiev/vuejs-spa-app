@@ -1,4 +1,4 @@
-form {
+.form-login {
   width: 300px;
   position: absolute;
   top: 50%;
@@ -9,7 +9,7 @@ form {
   border-radius: 20px;
   display: flex;
   flex-direction: column;
-  .input-form {
+  .form-input {
     font-size: 18px;
     padding: 5px;
     border-radius: 5px;
@@ -17,7 +17,7 @@ form {
     margin-bottom: 7px;
     outline: none;
   }
-  .error-text{
+  .text-error {
     color: #f44336;
     text-align: center;
     font-size: 14px;
@@ -32,9 +32,5 @@ form {
     border-radius: 5px;
     cursor: pointer;
     outline: none;
-  }
-  .error {
-    color: #f44336;
-    padding: 0px 10px 5px;
   }
 }

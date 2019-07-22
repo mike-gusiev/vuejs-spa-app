@@ -41,15 +41,9 @@ export default {
   },
 
   methods: {
-
-    validateConfirmPassword (value) {
-      this.confirmPassword = value
-      this.$v.confirmPassword.$touch()
-    },
-
     ...mapActions('registration', ['registrationUser']),
 
-    handleRegistration () {
+    userRegistration () {
       if (!this.$v.$invalid) {
         this.registrationUser({ router: this.$router, name: this.name, password: this.password })
       }

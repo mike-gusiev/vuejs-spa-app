@@ -1,8 +1,8 @@
 <template>
   <div class="post">
       <div v-if="isEdit" class="post-edit">
-          <button class="close-edit" @click="changePost"><i class="fas fa-times"></i></button>
-          <form @submit.prevent="handleUpdate" class="updatePost">
+          <button class="post-edit-close" @click="changePost"><i class="fas fa-times"></i></button>
+          <form @submit.prevent="handleUpdate" class="form-updatePost">
               <textarea cols="30"
                         rows="10"
                         placeholder="Description..."
@@ -13,23 +13,27 @@
               <button type="submit" class="button-submit" @click="handleUpdate">Update</button>
           </form>
       </div>
+
       <div v-else>
           <div class="post-user__info">
               <div class="avatar">
                   {{post.owner.name.slice(0, 1)}}
               </div>
               <div class="user-name">{{post.owner.name}}</div>
-              <div v-if="post.owner.id === currentUser" class="post-actions">
+
+              <div v-if="post.owner.id === currentUserId" class="post-actions">
                   <button class="edit" @click="changePost"><i class="far fa-edit"></i></button>
                   <button class="delete" @click="handleDelete"><i class="fas fa-trash"></i></button>
               </div>
           </div>
+
           <div class="post-body">{{post.content.body}}</div>
 
           <button class="handle-comments" @click="toggleVisibleComments"><i class="fas fa-comments"></i></button>
+
           <div v-show="showComments" class="post-comments">
             <div v-for="(comment, index) in comments[`${post.id}`]" :key="index">
-                <comment :comment="comment"></comment>
+                <comment :comment="comment" :postOwnerId="post.owner.id" :index="index"></comment>
             </div>
               <form class="form-comment" @submit.prevent="handleComment">
                   <textarea class="text-comment" v-model="comment"></textarea>

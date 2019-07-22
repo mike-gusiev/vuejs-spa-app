@@ -27,11 +27,6 @@ export default new Router({
       path: '/registration',
       name: 'Registration',
       component: () => import(/* webpackChunkName: 'Registration' */ '../components/pages/registration/Registration.vue')
-    },
-    {
-      path: '/new-post',
-      name: 'NewPost',
-      component: () => import(/* webpackChunkName: 'NewPost' */ '../components/pages/new-post/NewPost.vue')
     }
   ]
 })

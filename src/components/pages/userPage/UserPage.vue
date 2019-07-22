@@ -6,12 +6,13 @@
             </div>
         </div>
         <div class="posts_section">
-            <form @submit.prevent="handleSubmit">
+            <form @submit.prevent="handleSubmit" class="form-newPost">
                 <textarea
                     placeholder="Description..."
                     v-model="body"
+                    class="text-newPost"
                 ></textarea>
-                <button class="form_submit">Post</button>
+                <button class="button-submit">Post</button>
             </form>
             <div class="posts" v-for="(post, index) in posts" :key="index">
                 <post

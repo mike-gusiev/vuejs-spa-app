@@ -6,7 +6,9 @@ import {
   UPDATE_POST,
   DELETE_POST,
   SET_COMMENTS,
-  SET_NEW_COMMENT
+  SET_NEW_COMMENT,
+  UPDATE_COMMENT,
+  DELETE_COMMENT
 } from './mutation-types'
 
 export const posts = {
@@ -18,13 +20,8 @@ export const posts = {
   },
 
   mutations: {
-    [SET_POSTS] (state, fetchPosts) {
-      const { posts, userId } = fetchPosts
-      if (userId) {
-        state.posts = posts.filter(post => post.owner.id === userId)
-      } else {
+    [SET_POSTS] (state, posts) {
         state.posts = posts
-      }
     },
 
     [SET_NEW_POST] (state, post) {
@@ -32,8 +29,8 @@ export const posts = {
     },
 
     [UPDATE_POST] (state, updatePost) {
-      const { index, body, title } = updatePost
-      state.posts[index].content.body = body
+      const { index, data } = updatePost
+      state.posts[index].content.body = data.content.body
     },
 
     [DELETE_POST] (state, id) {
@@ -46,20 +43,39 @@ export const posts = {
 
     [SET_NEW_COMMENT] (state, comment) {
       state.comments[`${comment.postId}`].push(comment)
+    },
+
+    [UPDATE_COMMENT] (state, comment) {
+        const { data, index } = comment
+        state.comments[data.postId][index] = data.content
+        console.log(state.comments[data.postId][index]);
+    },
+
+    [DELETE_COMMENT] (state, info) {
+        const { postId, id } = info
+        state.comments[postId] = this.state.posts.comments[`${postId}`].filter(comment => comment.id !== id)
     }
   },
 
   actions: {
-    getPosts ({ commit }, userId) {
+    getPosts ({ commit }) {
       Vue.http.get(URL + '/posts')
         .then(response => {
-          commit(SET_POSTS, { posts: response.data, userId })
+            commit(SET_POSTS, response.data)
         })
         .catch(error => console.log(error))
     },
 
+    getUserPosts ({commit}, userId) {
+        Vue.http.get(URL + '/posts?owner.id=' + userId)
+            .then(response => {
+                commit(SET_POSTS, response.data)
+            })
+            .catch(error => console.log(error))
+    },
+
     newPost ({ commit }, newPost) {
-      const { title, body, userId: id, userName: name } = newPost
+      const { body, userId: id, userName: name } = newPost
 
       Vue.http.post(URL + '/posts', { owner: { id, name }, content: { body } })
         .then((response) => {
@@ -69,10 +85,10 @@ export const posts = {
     },
 
     updatePost ({ commit }, post) {
-      const { id, title, body, index } = post
-      Vue.http.put(URL + `/posts/${id}`, { owner: { id, name: 'Mike' }, content: { body: body } })
+      const { id, body, index, userName, userId } = post
+      Vue.http.put(URL + `/posts/${id}`, { owner: { id: userId, name: userName }, content: { body } })
         .then((response) => {
-          commit(UPDATE_POST, { index, title, body })
+          commit(UPDATE_POST, {data: response.data, index})
         })
         .catch(error => console.log(error))
     },
@@ -92,12 +108,27 @@ export const posts = {
     },
 
     newComment ({ commit }, comment) {
-      // console.log({comments: {owner: {id: comment.userId, name: comment.userName}, comment: comment.commentText}})
+        const {userId, userName, postId, content} = comment
       Vue.http.post(URL + '/comments',
-        { owner: { id: comment.userId, name: comment.userName }, postId: comment.postId, comment: comment.commentText })
+        { owner: { id: userId, name: userName }, postId, content })
         .then(response => commit(SET_NEW_COMMENT, response.data))
         .catch(error => console.log(error))
-    }
+    },
 
+    updateComment ({commit}, comment) {
+        const { id, content, index, userName, userId, postId } = comment
+        Vue.http.put(URL + `/comments/${id}`, { owner: { id: userId, name: userName }, postId, content })
+            .then((response) => {
+                console.log(response.data);
+                commit(UPDATE_COMMENT, {data: response.data, index})
+            })
+            .catch(error => console.log(error))
+    },
+
+    deleteComment ({commit}, info) {
+        Vue.http.delete(URL + `/comments/${info.id}`)
+            .then(() => commit(DELETE_COMMENT, info))
+            .catch(error => console.log(error))
+    }
   }
 }

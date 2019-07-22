@@ -47,7 +47,7 @@ export default {
       getUsers: 'login/getUsers'
     }),
 
-    handleLogin () {
+    userLogin () {
       if (!this.$v.$invalid) {
         this.$store.commit(`login/${SIGN_IN_LOG_IN}`, this.name)
         this.$router.push({ name: 'Home' })

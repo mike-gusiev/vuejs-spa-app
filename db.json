@@ -18,7 +18,7 @@
         "name": "Mike"
       },
       "content": {
-        "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua......"
+        "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..--"
       },
       "id": 1
     },
@@ -40,17 +40,8 @@
         "name": "Alex"
       },
       "postId": 1,
-      "comment": "123",
+      "content": "123",
       "id": 1
-    },
-    {
-      "owner": {
-        "id": 1,
-        "name": "Mike"
-      },
-      "postId": 2,
-      "comment": "Lol",
-      "id": 2
     }
   ]
 }

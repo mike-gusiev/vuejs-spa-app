@@ -15,7 +15,7 @@ export default {
   },
 
   created () {
-    this.getPosts(JSON.parse(localStorage.getItem('User')).id)
+    this.getUserPosts(JSON.parse(localStorage.getItem('User')).id)
   },
 
   computed: {
@@ -25,12 +25,14 @@ export default {
 
   methods: {
     ...mapActions({
-      getPosts: 'posts/getPosts',
+      getUserPosts: 'posts/getUserPosts',
       newPost: 'posts/newPost'
     }),
 
     handleSubmit () {
-      this.newPost({ userId: JSON.parse(localStorage.getItem('User')).id, userName: this.$route.params.user, body: this.body })
+      this.newPost({ userId: JSON.parse(localStorage.getItem('User')).id,
+          userName: this.$route.params.user,
+          body: this.body })
       this.body = ''
     }
   }

@@ -7,7 +7,7 @@
         </div>
       </div>
       <div v-else class="home-welcome">
-        Welcome to the home page {{isLogin}}
+        Welcome to the home page
       </div>
     </div>
   </div>
@@ -15,6 +15,6 @@
 
 <script src="./home.js"></script>
 
-<style scoped>
+<style scoped lang="scss">
   @import './home.scss';
 </style>
