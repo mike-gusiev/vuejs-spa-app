@@ -1,8 +1,8 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Home from '../components/pages/home/Home.vue'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Home from '../components/pages/home/Home.vue';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   mode: 'history',
@@ -29,4 +29,4 @@ export default new Router({
       component: () => import(/* webpackChunkName: 'Registration' */ '../components/pages/registration/Registration.vue')
     }
   ]
-})
+});

@@ -1,5 +1,5 @@
-import { mapActions } from 'vuex'
-import { required } from 'vuelidate/lib/validators'
+import { mapActions } from 'vuex';
+import { required } from 'vuelidate/lib/validators';
 
 export default {
   name: 'Comment',
@@ -14,7 +14,7 @@ export default {
     return {
       isEdit: false,
       textComment: this.comment.content
-    }
+    };
   },
 
   validations: {
@@ -25,7 +25,7 @@ export default {
 
   computed: {
     currentUserId: () => {
-      return JSON.parse(localStorage.getItem('User')).id
+      return JSON.parse(localStorage.getItem('User')).id;
     }
   },
 
@@ -36,7 +36,7 @@ export default {
     }),
 
     handleEditComment () {
-      this.isEdit = !this.isEdit
+      this.isEdit = !this.isEdit;
     },
 
     handleUpdate () {
@@ -47,14 +47,14 @@ export default {
           userName: this.comment.owner.name,
           userId: this.comment.owner.id,
           postId: this.comment.postId
-        })
-        this.isEdit = false
+        });
+        this.isEdit = false;
       }
     },
 
     handleDelete () {
-      this.deleteComment({ id: this.comment.id, postId: this.comment.postId })
+      this.deleteComment({ id: this.comment.id, postId: this.comment.postId });
     }
   }
 
-}
+};

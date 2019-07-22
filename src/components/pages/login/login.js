@@ -1,6 +1,6 @@
-import { mapState, mapActions } from 'vuex'
-import { required } from 'vuelidate/lib/validators'
-import { SIGN_IN_LOG_IN } from '../../../store/modules/login/mutation-types'
+import { mapState, mapActions } from 'vuex';
+import { required } from 'vuelidate/lib/validators';
+import { SIGN_IN_LOG_IN } from '../../../store/modules/login/mutation-types';
 
 export default {
   name: 'Login',
@@ -9,19 +9,19 @@ export default {
     return {
       name: '',
       password: ''
-    }
+    };
   },
 
   beforeRouteEnter (to, from, next) {
     next(vm => {
       if (vm.isLogin) {
-        next({ name: 'Home' })
+        next({ name: 'Home' });
       }
-    })
+    });
   },
 
   created () {
-    this.getUsers()
+    this.getUsers();
   },
 
   computed: {
@@ -37,7 +37,7 @@ export default {
     password: {
       required,
       correctPassword (value) {
-        return this.users.some(user => user.name === this.name && user.password === value)
+        return this.users.some(user => user.name === this.name && user.password === value);
       }
     }
   },
@@ -49,9 +49,9 @@ export default {
 
     userLogin () {
       if (!this.$v.$invalid) {
-        this.$store.commit(`login/${SIGN_IN_LOG_IN}`, this.name)
-        this.$router.push({ name: 'Home' })
+        this.$store.commit(`login/${SIGN_IN_LOG_IN}`, this.name);
+        this.$router.push({ name: 'Home' });
       }
     }
   }
-}
+};

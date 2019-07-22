@@ -1,5 +1,5 @@
-import { mapActions, mapState } from 'vuex'
-import { required, sameAs, minLength } from 'vuelidate/lib/validators'
+import { mapActions, mapState } from 'vuex';
+import { required, sameAs, minLength } from 'vuelidate/lib/validators';
 
 export default {
   name: 'Registration',
@@ -9,7 +9,7 @@ export default {
       name: '',
       password: '',
       confirmPassword: ''
-    }
+    };
   },
 
   computed: {
@@ -19,9 +19,9 @@ export default {
   beforeRouteEnter (to, from, next) {
     next(vm => {
       if (vm.isLogin) {
-        next({ name: 'Home' })
+        next({ name: 'Home' });
       }
-    })
+    });
   },
 
   validations: {
@@ -45,8 +45,8 @@ export default {
 
     userRegistration () {
       if (!this.$v.$invalid) {
-        this.registrationUser({ router: this.$router, name: this.name, password: this.password })
+        this.registrationUser({ router: this.$router, name: this.name, password: this.password });
       }
     }
   }
-}
+};

@@ -1,6 +1,6 @@
-import { mapActions, mapState } from 'vuex'
-import Post from '../../ui-components/Post/Post.vue'
-import { required } from 'vuelidate/lib/validators'
+import { mapActions, mapState } from 'vuex';
+import Post from '../../ui-components/Post/Post.vue';
+import { required } from 'vuelidate/lib/validators';
 
 export default {
   name: 'UserPage',
@@ -8,7 +8,7 @@ export default {
   data () {
     return {
       body: ''
-    }
+    };
   },
 
   components: {
@@ -22,7 +22,7 @@ export default {
   },
 
   created () {
-    this.getUserPosts(JSON.parse(localStorage.getItem('User')).id)
+    this.getUserPosts(JSON.parse(localStorage.getItem('User')).id);
   },
 
   computed: {
@@ -40,9 +40,9 @@ export default {
       if (!this.$v.$invalid) {
         this.newPost({ userId: JSON.parse(localStorage.getItem('User')).id,
           userName: this.$route.params.user,
-          body: this.body })
-        this.body = ''
+          body: this.body });
+        this.body = '';
       }
     }
   }
-}
+};

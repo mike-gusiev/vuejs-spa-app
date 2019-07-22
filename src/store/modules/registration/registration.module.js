@@ -1,5 +1,5 @@
-import Vue from 'vue'
-import { URL } from '../../../core/constants'
+import Vue from 'vue';
+import { URL } from '../../../core/constants';
 
 export const registration = {
   namespaced: true,
@@ -9,7 +9,7 @@ export const registration = {
     registrationUser ({}, registrationWithRouter) {
       Vue.http.post(URL + '/users', { name: registrationWithRouter.name, password: registrationWithRouter.password })
         .then(registrationWithRouter.router.push({ name: 'Login' }))
-        .catch(error => console.log(error))
+        .catch(error => console.log(error));
     }
   }
-}
+};

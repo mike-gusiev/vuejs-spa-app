@@ -49,15 +49,6 @@
         "id": 1,
         "name": "Mike"
       },
-      "postId": 1,
-      "content": "LOl",
-      "id": 2
-    },
-    {
-      "owner": {
-        "id": 1,
-        "name": "Mike"
-      },
       "postId": 3,
       "content": "Lol",
       "id": 3

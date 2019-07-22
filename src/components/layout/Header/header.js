@@ -1,11 +1,11 @@
-import { mapState, mapMutations, mapActions } from 'vuex'
-import { SIGN_IN_LOG_OUT } from '../../../store/modules/login/mutation-types'
+import { mapState, mapMutations, mapActions } from 'vuex';
+import { SIGN_IN_LOG_OUT } from '../../../store/modules/login/mutation-types';
 
 export default {
   name: 'Header',
 
   created () {
-    this.getCurrentUser()
+    this.getCurrentUser();
   },
 
   computed: {
@@ -23,8 +23,8 @@ export default {
     }),
 
     userLogOut () {
-      this.logOut()
-      this.$router.push({ name: 'Home' })
+      this.logOut();
+      this.$router.push({ name: 'Home' });
     }
   }
-}
+};

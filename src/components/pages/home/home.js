@@ -1,5 +1,5 @@
-import Post from '../../ui-components/Post/Post.vue'
-import { mapState, mapActions } from 'vuex'
+import Post from '../../ui-components/Post/Post.vue';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'Home',
@@ -8,7 +8,7 @@ export default {
   },
 
   created () {
-    this.getPosts()
+    this.getPosts();
   },
 
   computed: {
@@ -19,4 +19,4 @@ export default {
   methods: {
     ...mapActions('posts', ['getPosts'])
   }
-}
+};
